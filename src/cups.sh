@@ -9,7 +9,7 @@
 #
 #        USAGE:   Run <cups.sh -h> for more information
 #
-#  DESCRIPTION:   Repository Run File
+#  DESCRIPTION:   CUPSwrapper Run File
 #
 #      OPTIONS:   Run <cups.sh -h> for more information
 #
@@ -20,7 +20,7 @@
 #        NOTES:   Please edit the configuration file (/etc/cups.cfg.sh)
 #                 before you start.
 #
-#        TODO:    See 'TODO:'-tagged lines below.
+#         TODO:   See 'TODO:'-tagged lines below.
 #===============================================================================
 
 #===============================================================================
@@ -322,10 +322,10 @@ args_check() {
 
   elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_SCRIPT}" ]; then
-  
+
     # Script mode
     true
-  
+
   fi                                                                        && \
 
   #-----------------------------------------------------------------------------

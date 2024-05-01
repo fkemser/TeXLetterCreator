@@ -17,10 +17,10 @@
 #
 #         BUGS:   ---
 #
-#        NOTES:   Please edit the repository configuration file
-#                 (/etc/tex.cfg.sh) before you start.
+#        NOTES:   Please edit the configuration file (/etc/tex.cfg.sh)
+#                 before you start.
 #
-#        TODO:    See 'TODO:'-tagged lines below.
+#         TODO:   See 'TODO:'-tagged lines below.
 #===============================================================================
 
 #===============================================================================
