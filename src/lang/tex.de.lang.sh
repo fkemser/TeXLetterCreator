@@ -139,8 +139,6 @@ Bitte stellen Sie sicher, dass Ihre TeX-Vorlage Umgebungsvariablen des Betriebss
   arg_recp_addr :   Empfängeradresse (mehrzeilig, ohne Name)
   arg_recp_name :   Empfängername (einzeilig)
 
-Dieses Repository beinhaltet eine Beispielvorlage, eine angepasste Version von 'GerLaTeXLetter'. Sie finden diese unter '/$(basename "${I_DIR_TEX}")'.
-
 Dieses Repository beinhaltet eine Beispielvorlage, eine angepasste Version von 'GerLaTeXLetter', zu finden unter '/$(basename "${I_DIR_TEX}")'. Diese Vorlage benötigt zusätzliche LaTeX-Pakete. Weitere Informationen hierzu finden Sie unter: ${L_TEX_HLP_TXT_REFERENCES_5}"
 
 #  Requirements 3
