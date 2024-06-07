@@ -20,7 +20,7 @@
 #===============================================================================
 
 #===============================================================================
-#                  TODO: DEFINE YOUR VARIABLES/CONSTANTS HERE
+#                  DONE: DEFINE YOUR VARIABLES/CONSTANTS HERE
 #
 #                                      |||
 #                                     \|||/
@@ -31,5 +31,5 @@
 #                                     /|||\
 #                                      |||
 #
-#                  TODO: DEFINE YOUR VARIABLES/CONSTANTS HERE
+#                  DONE: DEFINE YOUR VARIABLES/CONSTANTS HERE
 #===============================================================================

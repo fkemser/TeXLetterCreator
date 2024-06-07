@@ -106,6 +106,11 @@ readonly L_TEX_EN_HLP_DES_ARG_ACTION_PRINT="${L_TEX_EN_DLG_ITM_ARG_ACTION_PRINT}
 #===============================================================================
 #  FUNCTIONS (CUSTOM) (MENUS)
 #===============================================================================
+#-------------------------------------------------------------------------------
+#  print
+#-------------------------------------------------------------------------------
+readonly L_TEX_EN_DLG_TXT_PRINT_1="Could not generate PDF file from TeX sources. ${LIB_SHTPL_EN_TXT_ABORTING}"
+readonly L_TEX_EN_DLG_TXT_PRINT_2="Could not complete printing process successfully. ${LIB_SHTPL_EN_DLG_TXT_ERROR_TRYAGAIN}"
 
 #===============================================================================
 #  HELP

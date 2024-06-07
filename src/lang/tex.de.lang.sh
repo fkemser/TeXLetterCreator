@@ -99,6 +99,19 @@ readonly L_TEX_DE_DLG_ITM_ARG_ACTION_PRINT="Brief generieren und drucken"
 readonly L_TEX_DE_HLP_DES_ARG_ACTION_PRINT="${L_TEX_DE_DLG_ITM_ARG_ACTION_PRINT}"
 
 #===============================================================================
+#  GLOBAL VARIABLES (CUSTOM)
+#===============================================================================
+
+#===============================================================================
+#  FUNCTIONS (CUSTOM) (MENUS)
+#===============================================================================
+#-------------------------------------------------------------------------------
+#  print
+#-------------------------------------------------------------------------------
+readonly L_TEX_DE_DLG_TXT_PRINT_1="PDF-Datei konnte nicht aus TeX-Vorlage generiert werden. ${LIB_SHTPL_DE_TXT_ABORTING}"
+readonly L_TEX_DE_DLG_TXT_PRINT_2="Der Druckvorgang konnte nicht erfolgreich abgeschlossen werden. ${LIB_SHTPL_DE_DLG_TXT_ERROR_TRYAGAIN}"
+
+#===============================================================================
 #  HELP
 #===============================================================================
 #-------------------------------------------------------------------------------

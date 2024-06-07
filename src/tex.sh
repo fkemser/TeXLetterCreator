@@ -1726,25 +1726,35 @@ create() {
 #===  FUNCTION  ================================================================
 #         NAME:  menu_print
 #  DESCRIPTION:  Create '.pdf' file out of '.tex' file and print it
-#   RETURNS  0:  Printer successfully deleted
-#            1:  Error or user interrupt
+#   RETURNS  0:  File successfully printed
+#            1:  Error
 #===============================================================================
 menu_print() {
   local title
   local text1
+  local text2
   eval "title=\${LIB_SHTPL_${ID_LANG}_DLG_TTL_ERROR}"
-  eval "text1=\${LIB_SHTPL_${ID_LANG}_DLG_TXT_ERROR_TRYAGAIN}"
+  eval "text1=\${L_TEX_${ID_LANG}_DLG_TXT_PRINT_1}"
+  eval "text2=\${L_TEX_${ID_LANG}_DLG_TXT_PRINT_2}"
 
   file_out_pdf="/tmp/$(lib_core_file_get --name "${I_FILE_SH_TEX}").$(date +%s).pdf"
 
   local exitcode
-  create "${arg_file_in}" "${file_out_pdf}"                   && \
+  # Step 1 - Create '.pdf' file out of '.tex' file
+  { create "${arg_file_in}" "${file_out_pdf}" || \
+    { exitcode="$?"
+      lib_msg_print_heading -2 "${TXT_CONTINUE_ENTER}"
+      read -r dummy
+      dialog --title "${title}" --msgbox "${text1}" 0 0
+      false
+    }
+  }                                                           && \
+
+  # Step 2 - Print '.pdf' file
   while ! "${I_FILE_SH_CUPS}" --print "${file_out_pdf}"; do
-    exitcode="0"
-    dialog --title "${title}" --yesno "${text1}" 0 0 || \
+    dialog --title "${title}" --yesno "${text2}" 0 0 || \
     { exitcode="$?"; break; }
-  done                                                        || \
-  exitcode="$?"
+  done
 
   rm -f "${file_out_pdf}"
 

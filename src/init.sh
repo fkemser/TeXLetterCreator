@@ -55,7 +55,7 @@ readonly I_FILE_SH_INIT="${I_DIR_SRC}/init.sh"  # Initialization Script
 #===============================================================================
 #  FILE / FOLDER STRUCTURE (CUSTOM)
 #===============================================================================
-#                     TODO: DEFINE YOUR FILES/FOLDERS HERE
+#                     DONE: DEFINE YOUR FILES/FOLDERS HERE
 #
 #                                      |||
 #                                     \|||/
@@ -70,7 +70,7 @@ readonly I_FILE_TEX_LETTER="${I_DIR_TEX}/letter.tex"  # Sample Letter (.tex)
 #                                     /|||\
 #                                      |||
 #
-#                     TODO: DEFINE YOUR FILES/FOLDERS HERE
+#                     DONE: DEFINE YOUR FILES/FOLDERS HERE
 #===============================================================================
 
 #===============================================================================

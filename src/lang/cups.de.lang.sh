@@ -267,6 +267,10 @@ ${L_CUPS_HLP_TXT_REQUIREMENTS_1_PRINTERDRIVERS}"
 readonly L_CUPS_DE_HLP_TTL_REQUIREMENTS_2="${LIB_SHTPL_DE_TXT_HELP_TTL_REQUIREMENTS_INTERACTIVE}"
 readonly L_CUPS_DE_HLP_TXT_REQUIREMENTS_2="${LIB_SHTPL_DE_TXT_HELP_TXT_REQUIREMENTS_INTERACTIVE}"
 
+#  Requirements 3
+readonly L_CUPS_DE_HLP_TTL_REQUIREMENTS_3="${LIB_SHTPL_DE_TXT_HELP_TTL_REQUIREMENTS_WSL_SYSTEMD}"
+readonly L_CUPS_DE_HLP_TXT_REQUIREMENTS_3="${LIB_SHTPL_DE_TXT_HELP_TXT_REQUIREMENTS_WSL_SYSTEMD}"
+
 #-------------------------------------------------------------------------------
 #  TEXTS
 #-------------------------------------------------------------------------------
