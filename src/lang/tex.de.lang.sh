@@ -56,8 +56,8 @@ readonly L_TEX_DE_HLP_DES_ARG_FILE_IN="Zu verwendende LaTeX-Vorlagendatei (.tex)
 #-------------------------------------------------------------------------------
 #  arg_file_out
 #-------------------------------------------------------------------------------
-readonly L_TEX_DE_DLG_TTL_ARG_FILE_OUT="Ausgabedatei (PDF)"
-readonly L_TEX_DE_DLG_TXT_ARG_FILE_OUT="Bitte geben Sie einen Dateipfad an, an dem der auszugebende Brief (.pdf) gespeichert werden soll."
+readonly L_TEX_DE_DLG_TTL_ARG_FILE_OUT="Ausgabedatei (.pdf)"
+readonly L_TEX_DE_DLG_TXT_ARG_FILE_OUT="${LIB_SHTPL_DE_DLG_TXT_FILE_OUT_NOOVERRIDE}"
 readonly L_TEX_DE_HLP_DES_ARG_FILE_OUT="Ausgabedatei (.pdf)"
 
 #-------------------------------------------------------------------------------
@@ -118,15 +118,15 @@ readonly L_TEX_DE_DLG_TXT_PRINT_2="Der Druckvorgang konnte nicht erfolgreich abg
 #  EXAMPLES
 #-------------------------------------------------------------------------------
 #  Example 1
-readonly L_TEX_DE_HLP_TTL_EXAMPLES_1="Hauptmenü aufrufen"
+readonly L_TEX_DE_HLP_TTL_EXAMPLES_1="Interaktiver Modus | Hauptmenü aufrufen"
 readonly L_TEX_DE_HLP_TXT_EXAMPLES_1="${L_TEX_HLP_TXT_EXAMPLES_1}"
 
 #  Example 2
-readonly L_TEX_DE_HLP_TTL_EXAMPLES_2="Einen Brief anhand der Vorlage 'letter.tex' drucken, dabei interaktiv nach dem Empfänger fragen"
+readonly L_TEX_DE_HLP_TTL_EXAMPLES_2="Interaktiver Modus | Einen Brief anhand der Vorlage 'letter.tex' drucken, dabei nach dem Empfänger fragen"
 readonly L_TEX_DE_HLP_TXT_EXAMPLES_2="${L_TEX_HLP_TXT_EXAMPLES_2}"
 
 #  Example 3
-readonly L_TEX_DE_HLP_TTL_EXAMPLES_3="Einen Brief mit vordefiniertem Empfänger erstellen und unter '~/letter.pdf' speichern"
+readonly L_TEX_DE_HLP_TTL_EXAMPLES_3="Skript-Modus | Einen Brief mit vordefiniertem Empfänger erstellen und unter '~/letter.pdf' speichern"
 readonly L_TEX_DE_HLP_TXT_EXAMPLES_3="${L_TEX_HLP_TXT_EXAMPLES_3}"
 
 #-------------------------------------------------------------------------------
@@ -142,7 +142,7 @@ readonly L_TEX_DE_HLP_TXT_REQUIREMENTS_1="\
 Benötigte Pakete:
 ${L_TEX_HLP_TXT_REQUIREMENTS_1_REQUIRED}
 
-Abhängig von der verwendeten LaTeX-Vorlage benötigen Sie unter Umständen weitere LaTeX-Pakete."
+Abhängig von der verwendeten TeX-Vorlage benötigen Sie unter Umständen weitere TeX-Pakete."
 
 #  Requirements 2
 readonly L_TEX_DE_HLP_TTL_REQUIREMENTS_2="TeX (Vorlage)"
@@ -152,7 +152,7 @@ Bitte stellen Sie sicher, dass Ihre TeX-Vorlage Umgebungsvariablen des Betriebss
   arg_recp_addr :   Empfängeradresse (mehrzeilig, ohne Name)
   arg_recp_name :   Empfängername (einzeilig)
 
-Dieses Repository beinhaltet eine Beispielvorlage, eine angepasste Version von 'GerLaTeXLetter', zu finden unter '/$(basename "${I_DIR_TEX}")'. Diese Vorlage benötigt zusätzliche LaTeX-Pakete. Weitere Informationen hierzu finden Sie unter: ${L_TEX_HLP_TXT_REFERENCES_5}"
+Dieses Repository beinhaltet eine Beispielvorlage ('/test/tex/letter.tex'), eine angepasste Version von 'GerLaTeXLetter'. Diese Vorlage benötigt zusätzliche LaTeX-Pakete. Weitere Informationen hierzu finden Sie unter: ${L_TEX_HLP_TXT_REQUIREMENTS_2_SEEALSO}"
 
 #  Requirements 3
 readonly L_TEX_DE_HLP_TTL_REQUIREMENTS_3="Druckerunterstützung"
@@ -198,7 +198,7 @@ readonly L_TEX_DE_HLP_TXT_TLDR_3="${L_TEX_DE_HLP_TXT_REQUIREMENTS_3}"
 #===============================================================================
 #  CUSTOM STRINGS (used in terminal output <stdout>/<stderr>)
 #===============================================================================
-#  TODO: Here you can define custom language-specific strings.
+#  DONE: Here you can define custom language-specific strings.
 #        Do not forget to "publish" them within the <init_lang()> function of
 #        your destination script, e.g. 'run.sh'.
 #===============================================================================

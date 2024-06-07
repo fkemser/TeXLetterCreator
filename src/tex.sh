@@ -288,7 +288,7 @@ args_check() {
 
   elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_SCRIPT}" ]; then
-  
+
     # Script mode
     lib_shtpl_arg_is_set "arg_file_in" "arg_recp_addr" "arg_recp_name"
 
@@ -516,7 +516,7 @@ error() {
 error_arg() {
   eval "readonly TXT_INVALID_ARG_1=\${LIB_SHTPL_${ID_LANG}_TXT_INVALID_ARG_1}"
   eval "readonly TXT_INVALID_ARG_2=\${LIB_SHTPL_${ID_LANG}_TXT_INVALID_ARG_2}"
-  
+
   local val
   eval "val=\${$1}"
 

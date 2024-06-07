@@ -131,7 +131,10 @@ Please also have a look at the corresponding sections in [CUPSwrapper](https://g
 
 ### Prerequisites
 
-Please read the corresponding sections in  [CUPSwrapper](https://github.com/fkemser/CUPSwrapper#prerequisites) and [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter#prerequisites).
+> :warning: Please follow each of the following setup instructions **before** continuing:
+
+* [CUPSwrapper](https://github.com/fkemser/CUPSwrapper#prerequisites), 
+* [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter#prerequisites)
 
 ### Installation
 
@@ -151,7 +154,7 @@ Please read the corresponding sections in  [CUPSwrapper](https://github.com/fkem
 <!-- TEX TEMPLATE -->
 ## TeX Template
 
-This repository is shipped with a **sample template** (`/tex/letter.tex`), a customized version of [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter).
+This repository is shipped with a **sample template** (`/test/tex/letter.tex`), a modified version of [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter). **To customize the template** please edit the files within the `/tex` folder. For more information please have a look at [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter#customization).
 
 **In case you use your own TeX template please make sure that it is capable of using the system's environmental variables**. This script will provide the following **additional environmental variables** to the template:
 
@@ -160,7 +163,7 @@ This repository is shipped with a **sample template** (`/tex/letter.tex`), a cus
 | `arg_recp_addr` | Recipient's address (multiline, without name) | 123 Main Street<br>Anytown, CA 12345<br>USA |
 | `arg_recp_name` | Recipient's name (one line)                   | Jane Doe                                    |
 
-**To introduce more variables** just modify the repository's run file `/src/tex.sh` as well as the TeX template `/tex/letter.tex` (or your own one). For more information on `tex.sh`'s general structure you may have a look at [SHtemplate](https://github.com/fkemser/SHtemplate#srcrunsh-repository-run-file). For more information on `letter.tex` please have a look at [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter).
+**To introduce more variables** just modify the repository's run file `/src/tex.sh` as well as the sample template `/tex/letter.tex` (or your own one). For more information on `tex.sh`'s general structure you may have a look at [SHtemplate](https://github.com/fkemser/SHtemplate#srcrunsh-repository-run-file). For more information on `letter.tex` please have a look at [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter#customization).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

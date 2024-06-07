@@ -207,6 +207,7 @@ readonly L_TEX_HLP_TXT_REFERENCES_7="https://github.com/fkemser/TeXLetterCreator
 readonly L_TEX_HLP_TXT_REQUIREMENTS_1_REQUIRED="\
   General: TeX Live: LaTeX recommended packages, TeX Live: LuaTeX packages
    Debian: > sudo apt install texlive-latex-recommended texlive-luatex"
+readonly L_TEX_HLP_TXT_REQUIREMENTS_2_SEEALSO="https://github.com/fkemser/GerLaTeXLetter#customization"
 
 #-------------------------------------------------------------------------------
 #  TEXTS

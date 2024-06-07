@@ -56,8 +56,8 @@ readonly L_TEX_EN_HLP_DES_ARG_FILE_IN="LaTeX template file (.tex) to use"
 #-------------------------------------------------------------------------------
 #  arg_file_out
 #-------------------------------------------------------------------------------
-readonly L_TEX_EN_DLG_TTL_ARG_FILE_OUT="Output File (PDF)"
-readonly L_TEX_EN_DLG_TXT_ARG_FILE_OUT="Please specify a path where the created letter (.pdf) will be stored."
+readonly L_TEX_EN_DLG_TTL_ARG_FILE_OUT="Output File (.pdf)"
+readonly L_TEX_EN_DLG_TXT_ARG_FILE_OUT="${LIB_SHTPL_EN_DLG_TXT_FILE_OUT_NOOVERRIDE}"
 readonly L_TEX_EN_HLP_DES_ARG_FILE_OUT="Output file (.pdf)"
 
 #-------------------------------------------------------------------------------
@@ -119,15 +119,15 @@ readonly L_TEX_EN_DLG_TXT_PRINT_2="Could not complete printing process successfu
 #  EXAMPLES
 #-------------------------------------------------------------------------------
 #  Example 1
-readonly L_TEX_EN_HLP_TTL_EXAMPLES_1="Call main menu"
+readonly L_TEX_EN_HLP_TTL_EXAMPLES_1="Interactive mode | Call main menu"
 readonly L_TEX_EN_HLP_TXT_EXAMPLES_1="${L_TEX_HLP_TXT_EXAMPLES_1}"
 
 #  Example 2
-readonly L_TEX_EN_HLP_TTL_EXAMPLES_2="Print a letter based on template 'letter.tex', interactively ask for recipient"
+readonly L_TEX_EN_HLP_TTL_EXAMPLES_2="Interactive mode | Print a letter based on template 'letter.tex', ask for recipient"
 readonly L_TEX_EN_HLP_TXT_EXAMPLES_2="${L_TEX_HLP_TXT_EXAMPLES_2}"
 
 #  Example 3
-readonly L_TEX_EN_HLP_TTL_EXAMPLES_3="Create letter with pre-defined recipient and save it as '~/letter.pdf'"
+readonly L_TEX_EN_HLP_TTL_EXAMPLES_3="Script mode | Create letter with pre-defined recipient and save it as '~/letter.pdf'"
 readonly L_TEX_EN_HLP_TXT_EXAMPLES_3="${L_TEX_HLP_TXT_EXAMPLES_3}"
 
 #-------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ Please make sure that your TeX template is capable of using the system's environ
   arg_recp_addr :   Recipient's address (multiline, without name)
   arg_recp_name :   Recipient's name (one line)
 
-This repository is shipped with a sample template, a customized version of 'GerLaTeXLetter', which you can find within '/$(basename "${I_DIR_TEX}")'. Please note that this template requires additional LaTeX packages. For more information please have a look at: ${L_TEX_HLP_TXT_REFERENCES_5}"
+This repository is shipped with a sample template ('/test/tex/letter.tex'), a modified version of 'GerLaTeXLetter'. This template requires additional LaTeX packages. For more information please have a look at: ${L_TEX_HLP_TXT_REQUIREMENTS_2_SEEALSO}"
 
 #  Requirements 3
 readonly L_TEX_EN_HLP_TTL_REQUIREMENTS_3="Printing Support"
@@ -180,7 +180,7 @@ To install the necessary packages on your system, simply run:
 
 ${L_TEX_HLP_TXT_TLDR_1_INSTALL}
 
-Depending on your LaTeX template you may need to install additional LaTeX packages.
+Depending on your TeX template you may need to install additional TeX packages.
 
 The script has been developed and tested on the following system:
 
@@ -200,7 +200,7 @@ readonly L_TEX_EN_HLP_TXT_TLDR_3="${L_TEX_EN_HLP_TXT_REQUIREMENTS_3}"
 #===============================================================================
 #  CUSTOM STRINGS (used in terminal output <stdout>/<stderr>)
 #===============================================================================
-#  TODO: Here you can define custom language-specific strings.
+#  DONE: Here you can define custom language-specific strings.
 #        Do not forget to "publish" them within the <init_lang()> function of
 #        your destination script, e.g. 'run.sh'.
 #===============================================================================
