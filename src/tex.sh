@@ -429,7 +429,11 @@ args_read() {
         #  Example: File/Directory parsing
         if [ $# -eq 1 ]; then
           #  Only one argument left
-          arg_file_in="$(lib_core_expand_tilde "$1")"
+          local lastarg="$(lib_core_expand_tilde "$1")"
+
+          #  Check if it can be a filepath
+          touch -c "${lastarg}" 2>/dev/null && \
+          arg_file_in="${lastarg}"
         else
           #  More than one argument left
           #
@@ -662,15 +666,15 @@ ${par_lastarg} : ${txt_lastarg}"
   #    the <lib_shtpl_arg()> function. You can find its documentation in
   #    '/lib/SHtemplateLIB/lib/shtpl.0.lib.sh'.
   #-----------------------------------------------------------------------------
-  lib_msg_print_propvalue "--left" "--left" "2" "" " "                                                          \
-    "$(lib_shtpl_arg --par "ARG_ACTION_HELP")"               "$(lib_shtpl_arg --des "ARG_ACTION_HELP")" " " ""  \
-                                                                                                                \
-    "$(lib_shtpl_arg --par "ARG_MODE_INTERACTIVE_SUBMENU")"  "$(lib_shtpl_arg --des "ARG_MODE_INTERACTIVE_SUBMENU")
+  lib_msg_print_propvalue "--left" "--left" "2" "" " "                                                \
+    "$(lib_shtpl_arg --par "ARG_ACTION_HELP")"    "$(lib_shtpl_arg --des "ARG_ACTION_HELP")" " " ""   \
+                                                                                                      \
+    "$(lib_shtpl_arg --par "ARG_MODE_INTERACTIVE_SUBMENU")"   "$(lib_shtpl_arg --des "ARG_MODE_INTERACTIVE_SUBMENU")
 
-<menu>$(lib_shtpl_arg --list-ptr "arg_action" "INTERACTIVE")" " " ""                                            \
-                                                                                                                \
-    "$(lib_shtpl_arg --par "ARG_ACTION_CREATE")"         "$(lib_shtpl_arg --des "ARG_ACTION_CREATE")" " " ""    \
-    "$(lib_shtpl_arg --par "ARG_ACTION_PRINT")"           "$(lib_shtpl_arg --des "ARG_ACTION_PRINT")"
+<menu>$(lib_shtpl_arg --list-ptr "arg_action" "INTERACTIVE")" " " ""                                  \
+                                                                                                      \
+    "$(lib_shtpl_arg --par "ARG_ACTION_CREATE")"  "$(lib_shtpl_arg --des "ARG_ACTION_CREATE")" " " "" \
+    "$(lib_shtpl_arg --par "ARG_ACTION_PRINT")"   "$(lib_shtpl_arg --des "ARG_ACTION_PRINT")"
   #-----------------------------------------------------------------------------
   #                                     /|\
   #                                    /|||\
@@ -696,11 +700,11 @@ ${par_lastarg} : ${txt_lastarg}"
   #    '/lib/SHtemplateLIB/lib/shtpl.0.lib.sh'.
   #-----------------------------------------------------------------------------
   eval lib_msg_print_heading -211 \"\${LIB_SHTPL_${ID_LANG}_TXT_HELP_TTL_SYNOPSIS_OPTION}\"
-  lib_msg_print_propvalue "--left" "--left" "2" "" " "                                              \
-    "$(lib_shtpl_arg --par "arg_file_in")"       "$(lib_shtpl_arg --des "arg_file_in")" " " ""      \
-    "$(lib_shtpl_arg --par "arg_file_out")"        "$(lib_shtpl_arg --des "arg_file_out")" " " ""   \
-    "$(lib_shtpl_arg --par "arg_recp_addr")"       "$(lib_shtpl_arg --des "arg_recp_addr")" " " ""  \
-    "$(lib_shtpl_arg --par "arg_recp_name")"        "$(lib_shtpl_arg --des "arg_recp_name")"
+  lib_msg_print_propvalue "--left" "--left" "2" "" " "                                        \
+    "$(lib_shtpl_arg --par "arg_file_in")"    "$(lib_shtpl_arg --des "arg_file_in")" " " ""   \
+    "$(lib_shtpl_arg --par "arg_file_out")"   "$(lib_shtpl_arg --des "arg_file_out")" " " ""  \
+    "$(lib_shtpl_arg --par "arg_recp_addr")"  "$(lib_shtpl_arg --des "arg_recp_addr")" " " "" \
+    "$(lib_shtpl_arg --par "arg_recp_name")"  "$(lib_shtpl_arg --des "arg_recp_name")"
   #-----------------------------------------------------------------------------
   #                                     /|\
   #                                    /|||\
@@ -1727,7 +1731,7 @@ create() {
 #         NAME:  menu_print
 #  DESCRIPTION:  Create '.pdf' file out of '.tex' file and print it
 #   RETURNS  0:  File successfully printed
-#            1:  Error
+#            1:  Error or user interrupt
 #===============================================================================
 menu_print() {
   local title
