@@ -337,7 +337,7 @@ args_check() {
   #-----------------------------------------------------------------------------
   #  arg_file
   #-----------------------------------------------------------------------------
-  if lib_core_is --set "${arg_file}"; then
+  if lib_core_is --not-empty "${arg_file}"; then
     lib_core_is --file "${arg_file}" || lib_shtpl_arg_error "arg_file"
   fi                                                                        || \
 
@@ -615,7 +615,7 @@ ${ttl_action} := $(lib_msg_print_list_ptr "${ARG_ACTION_LIST_SCRIPT}" "${ptr_pre
 #
 #${ttl_option} := $(lib_msg_print_list_ptr "${LIST_ARG}" "${ptr_prefix}_HLP_PAR_" "" "true")"
 
-  if lib_core_is --set "${txt_lastarg}"; then
+  if lib_core_is --not-empty "${txt_lastarg}"; then
     synopsis="\
 ${synopsis}
 
@@ -1735,7 +1735,7 @@ menu_add() {
     {
       # Set default settings
       menu_pr_options                                   && \
-      if lib_core_is --set "${pr_options}"; then
+      if lib_core_is --not-empty "${pr_options}"; then
         lpoptions -p "${pr_queue}" ${pr_options}
       fi                                                && \
 
@@ -1775,7 +1775,7 @@ menu_default() {
 menu_defsettings() {
   menu_pr_queue                                                             && \
   menu_pr_options                                                           && \
-  if lib_core_is --set "${pr_options}"; then
+  if lib_core_is --not-empty "${pr_options}"; then
     lpoptions -p "${pr_queue}" ${pr_options}
   fi
 }
@@ -1802,7 +1802,7 @@ menu_canceljob() {
 
   local exitcode="0"
   local msg
-  if lib_core_is --set "${joblist}"; then
+  if lib_core_is --not-empty "${joblist}"; then
     # Only if user has selected at least one active print job
     msg="$(cancel ${joblist} 2>&1)" && \
     dialog --no-collapse --title "${title1}" --msgbox "${text1}" 0 0
@@ -1856,7 +1856,7 @@ menu_print() {
 
   local exitcode="0"
   local msg
-  { if lib_core_is --set "${arg_file}"; then
+  { if lib_core_is --not-empty "${arg_file}"; then
       # Print file
       msg="$(lp -d "${pr_queue}" -n "${job_copies}" ${pr_options} \
         "${arg_file}" 2>&1)"
@@ -2024,8 +2024,8 @@ menu_joblist() {
   local exitcode="0"
   exec 3>&1
     # Get list of active print jobs
-    { jobs="$(lpstat -o | tr -s ' ')" && \
-      lib_core_is --set "${jobs}"     || \
+    { jobs="$(lpstat -o | tr -s ' ')"   && \
+      lib_core_is --not-empty "${jobs}" || \
       { dialog --no-collapse --title "${title2}" --msgbox "${text2}" 0 0
         false
       }
@@ -2377,7 +2377,7 @@ menu_pr_queue() {
           #---------------------------------------------------------------------
           #  Modes where a printer queue has to exist before continuing
           #---------------------------------------------------------------------
-          lib_core_is --set "${queues}" || \
+          lib_core_is --not-empty "${queues}" || \
           { dialog  --no-collapse --title "${title3}" --msgbox "${text3}" 0 0
             false
           }
@@ -2460,7 +2460,7 @@ menu_pr_queue() {
       exitcode="$?"
 
       case "${exitcode}" in
-        0) if lib_core_is --set "${result}"; then break; fi ;;
+        0) if lib_core_is --not-empty "${result}"; then break; fi ;;
         *) if lib_core_is --empty "${result}"; then break; fi ;;
       esac
     done

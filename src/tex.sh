@@ -301,7 +301,7 @@ args_check() {
   #  <lib_core_is()> and <lib_core_regex()> in '/lib/SHlib/lib/core.lib.sh'
   #-----------------------------------------------------------------------------
   #  arg_file_in
-  if lib_core_is --set "${arg_file_in}"; then
+  if lib_core_is --not-empty "${arg_file_in}"; then
     lib_core_is --file "${arg_file_in}" || \
     { error "<${arg_file_in}> ${TXT_ARGS_CHECK_ERR_ARG_FILE_IN}"; arg_file_in=""; false; }
   fi                                                                        && \
@@ -317,7 +317,7 @@ args_check() {
   fi                                                                        && \
 
   #  arg_file_out (all modes)
-  if lib_core_is --set "${arg_file_out}"; then
+  if lib_core_is --not-empty "${arg_file_out}"; then
     #  Make sure that <arg_file_out> is a valid file path and that
     #  <arg_file_out> does not exist yet
     touch -c "${arg_file_out}" 2>/dev/null && \
@@ -620,7 +620,7 @@ ${ttl_action} := $(lib_msg_print_list_ptr "${ARG_ACTION_LIST_SCRIPT}" "${ptr_pre
 
 ${ttl_option} := $(lib_msg_print_list_ptr "${LIST_ARG}" "${ptr_prefix}_HLP_PAR_" "" "true")"
 
-  if lib_core_is --set "${txt_lastarg}"; then
+  if lib_core_is --not-empty "${txt_lastarg}"; then
     synopsis="\
 ${synopsis}
 
@@ -1305,7 +1305,7 @@ run() {
     ${ARG_ACTION_CREATE})
       create "${arg_file_in}" "${arg_file_out}" && \
       # If there is a graphical environment open the file explorer
-      if lib_core_is --set "${DISPLAY}"; then
+      if lib_core_is --not-empty "${DISPLAY}"; then
         xdg-open "${arg_file_out}"
       fi
       ;;
@@ -1893,7 +1893,7 @@ menu_arg_recp_addr() {
       exitcode="$?"
 
       # Continue loop in case string is empty but yet accept canceling
-      if lib_core_is --set "${result}" || [ "${exitcode}" -ne 0 ]; then
+      if lib_core_is --not-empty "${result}" || [ "${exitcode}" -ne 0 ]; then
         break
       fi
     done
@@ -1930,7 +1930,7 @@ menu_arg_recp_name() {
       exitcode="$?"
 
       # Continue loop in case string is empty but yet accept canceling
-      if lib_core_is --set "${result}" || [ "${exitcode}" -ne 0 ]; then
+      if lib_core_is --not-empty "${result}" || [ "${exitcode}" -ne 0 ]; then
         break
       fi
     done
