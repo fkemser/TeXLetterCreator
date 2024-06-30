@@ -86,7 +86,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project provides a `dialog`-based interface to interactively create/print a letter based on a `TeX` (form) letter template by querying individual parameters, e.g. recipient's name and address.
+This project provides a `dialog`-based interface to interactively create/print a letter based on a `TeX` form letter template by querying individual parameters, e.g. recipient's name and address.
 
 ![Screenshot 11][screenshot11]
 

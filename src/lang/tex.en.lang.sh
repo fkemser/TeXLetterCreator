@@ -88,7 +88,7 @@ readonly L_TEX_EN_HLP_DES_LASTARG="${L_TEX_EN_HLP_DES_ARG_FILE_IN}"
 #  Script actions <ARG_ACTION_...>
 #-------------------------------------------------------------------------------
 #  Main Menu Title/Text
-readonly L_TEX_EN_DLG_TTL_ARG_ACTION="${L_ABOUT_PROJECT}"
+readonly L_TEX_EN_DLG_TTL_ARG_ACTION="TeXLetterCreator"
 readonly L_TEX_EN_DLG_TXT_ARG_ACTION="What would you like to do?"
 
 #  ARG_ACTION_CREATE
