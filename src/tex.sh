@@ -607,10 +607,10 @@ help_synopsis() {
 ${txt_intro}
 
 ${txt_interactive}:
-> ${L_ABOUT_RUN}
+> ${L_TEX_ABOUT_RUN}
 
 ${txt_script}:
-> ${L_ABOUT_RUN} [ ${ttl_option} ]... ${ttl_action}${par_lastarg:+ ${par_lastarg}}"
+> ${L_TEX_ABOUT_RUN} [ ${ttl_option} ]... ${ttl_action}${par_lastarg:+ ${par_lastarg}}"
 
   #  SYNOPSIS (long) version
   synopsis="\
@@ -1743,7 +1743,7 @@ menu_print() {
 
   file_out_pdf="/tmp/$(lib_core_file_get --name "${I_FILE_SH_TEX}").$(date +%s).pdf"
 
-  local exitcode
+  local exitcode="0"
   # Step 1 - Create '.pdf' file out of '.tex' file
   { create "${arg_file_in}" "${file_out_pdf}" || \
     { exitcode="$?"

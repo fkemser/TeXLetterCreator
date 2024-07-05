@@ -82,7 +82,7 @@ readonly L_CUPS_EN_HLP_DES_ARG_ACTION_JOBSETTINGS="Interactively select printer 
 
 #  ARG_ACTION_PRINT
 readonly L_CUPS_EN_DLG_ITM_ARG_ACTION_PRINT="Print a file"
-readonly L_CUPS_EN_HLP_DES_ARG_ACTION_PRINT="Print, either from a given <file> or <stdin>'s (pipe) content ('echo \"Text to print\" | ${L_ABOUT_RUN} --print'). Interactively select printer and print job settings before printing."
+readonly L_CUPS_EN_HLP_DES_ARG_ACTION_PRINT="Print, either from a given <file> or <stdin>'s (pipe) content ('echo \"Text to print\" | ${L_CUPS_ABOUT_RUN} --print'). Interactively select printer and print job settings before printing."
 
 #  ARG_ACTION_REMOVE
 readonly L_CUPS_EN_DLG_ITM_ARG_ACTION_REMOVE="Remove an existing printer"

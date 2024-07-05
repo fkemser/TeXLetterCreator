@@ -32,6 +32,14 @@
 #  Language-independent constants, to be stored within THIS file
 #===============================================================================
 #-------------------------------------------------------------------------------
+#  Used in help, section "ABOUT" and welcome dialogue
+#-------------------------------------------------------------------------------
+#  Constant                       Description
+#  (Example)
+#  -----------------------------------------------------------------------------
+#  L_<S>_ABOUT_...                See 'ABOUT THIS REPOSITORY' section below.
+#
+#-------------------------------------------------------------------------------
 #  Used in help, section "SYNOPSIS"
 #-------------------------------------------------------------------------------
 #  Constant                       Description             Example (value)
@@ -136,6 +144,45 @@
 #===============================================================================
 
 #===============================================================================
+#  ABOUT THIS REPOSITORY
+#===============================================================================
+#  Author name and mail address (multiple authors separated by newline)
+readonly L_CUPS_ABOUT_AUTHORS="Florian Kemser and the CUPSwrapper contributors"
+
+#  (Optional) Project description, should be a oneliner describing what the
+#  project does. Please start with a low letter and leave the terminating
+#  '.' out.
+readonly L_CUPS_ABOUT_DESCRIPTION="a collection of shell scripts to interactively print and manage printers for local usage"
+
+#  (Optional) Institution (multiple lines allowed)
+readonly L_CUPS_ABOUT_INSTITUTION=""
+
+#  (Optional) Project license (SPDX-License-Identifier)
+#
+#  For the full SPDX license list please have a look at
+#  'https://spdx.org/licenses/'. However, only some licenses
+#  are supported, see </lib/SHtemplateLIB/lib/licenses> folder.
+#
+#  If you are not sure which license to choose
+#  just have a look at e.g. 'https://choosealicense.com'.
+readonly L_CUPS_ABOUT_LICENSE="GPL-3.0-or-later"
+
+#  (Optional) ASCII logo to display when running the script in interactive ('dialog') mode
+readonly L_CUPS_ABOUT_LOGO=""
+
+#  Project title, e.g. 'My Project'
+readonly L_CUPS_ABOUT_PROJECT="CUPSwrapper"
+
+#  DO NOT EDIT
+readonly L_CUPS_ABOUT_RUN="./$(basename "$0")"
+
+#  (Optional) Release/Version number, e.g. '1.1.0'
+readonly L_CUPS_ABOUT_VERSION="1.0.0"
+
+#  (Optional) Project year(s), e.g. '2023', '2023-2024'
+readonly L_CUPS_ABOUT_YEARS="2022-2024"
+
+#===============================================================================
 #  PARAMETER (TEMPLATE) - DO NOT EDIT
 #===============================================================================
 #  Script actions <ARG_ACTION_...>
@@ -195,8 +242,8 @@ readonly L_CUPS_DLG_TXT_PR_QUEUE_4="[a-zA-Z0-9_%-]"
 #  EXAMPLES
 #-------------------------------------------------------------------------------
 readonly L_CUPS_HLP_TXT_EXAMPLES_1="\
-> ${L_ABOUT_RUN} --print letter.pdf     # Print a PDF file named 'letter.pdf'
-> echo Hello | ${L_ABOUT_RUN} --print   # Print a command's output, here 'echo Hello'"
+> ${L_CUPS_ABOUT_RUN} --print letter.pdf     # Print a PDF file named 'letter.pdf'
+> echo Hello | ${L_CUPS_ABOUT_RUN} --print   # Print a command's output, here 'echo Hello'"
 
 #-------------------------------------------------------------------------------
 #  NOTES

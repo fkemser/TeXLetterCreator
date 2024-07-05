@@ -82,7 +82,7 @@ readonly L_CUPS_DE_HLP_DES_ARG_ACTION_JOBSETTINGS="Fordert den Nutzer interaktiv
 
 #  ARG_ACTION_PRINT
 readonly L_CUPS_DE_DLG_ITM_ARG_ACTION_PRINT="Eine Datei drucken"
-readonly L_CUPS_DE_HLP_DES_ARG_ACTION_PRINT="Führt einen Druckauftrag aus, wobei die zu druckenden Daten entweder aus einer Datei (<file>) oder dem Inhalt der Pipe <stdin> ('echo \"Zu druckender Text\" | ${L_ABOUT_RUN} --print') stammen können."
+readonly L_CUPS_DE_HLP_DES_ARG_ACTION_PRINT="Führt einen Druckauftrag aus, wobei die zu druckenden Daten entweder aus einer Datei (<file>) oder dem Inhalt der Pipe <stdin> ('echo \"Zu druckender Text\" | ${L_CUPS_ABOUT_RUN} --print') stammen können."
 
 #  ARG_ACTION_REMOVE
 readonly L_CUPS_DE_DLG_ITM_ARG_ACTION_REMOVE="Bestehenden Drucker löschen"
