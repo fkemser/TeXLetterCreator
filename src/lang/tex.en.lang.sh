@@ -51,7 +51,7 @@ readonly L_TEX_EN_HLP_DES_ARG_MODE_INTERACTIVE_SUBMENU="${LIB_SHTPL_EN_HLP_DES_A
 #-------------------------------------------------------------------------------
 readonly L_TEX_EN_DLG_TTL_ARG_FILE_IN="Source File (LaTeX Template)"
 readonly L_TEX_EN_DLG_TXT_ARG_FILE_IN="Please select a template file (.tex) to use."
-readonly L_TEX_EN_HLP_DES_ARG_FILE_IN="LaTeX template file (.tex) to use"
+readonly L_TEX_EN_HLP_DES_ARG_FILE_IN="LaTeX template file (.tex) to use. In case the file uses further environment variables please specify them with '${L_TEX_HLP_PAR_ARG_VARS}'. This ensures that the script escapes ('\') any special characters like '\$' in case the variables' content contains such characters."
 
 #-------------------------------------------------------------------------------
 #  arg_file_out
@@ -78,6 +78,11 @@ readonly L_TEX_EN_DLG_TTL_ARG_RECP_NAME="Recipient (Name)"
 readonly L_TEX_EN_DLG_TXT_ARG_RECP_NAME="Please enter the recipient's name."
 readonly L_TEX_EN_DLG_STR_ARG_RECP_NAME="Jane Doe"
 readonly L_TEX_EN_HLP_DES_ARG_RECP_NAME="Recipient's name"
+
+#-------------------------------------------------------------------------------
+#  arg_vars
+#-------------------------------------------------------------------------------
+readonly L_TEX_EN_HLP_DES_ARG_VARS="Variables (identifiers) that have been exported in the calling script/terminal, for further use in the template file ('${L_TEX_HLP_PAR_ARG_FILE_IN}'). Use space (' ') to separate multiple identifiers."
 
 #-------------------------------------------------------------------------------
 #  Last argument (parameter), see also <args_read()> in '/src/run.sh'

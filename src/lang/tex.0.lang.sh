@@ -211,6 +211,7 @@ readonly L_TEX_HLP_PAR_ARG_FILE_IN="-i|--in <file_in>"
 readonly L_TEX_HLP_PAR_ARG_FILE_OUT="-o|--out <file_out>"
 readonly L_TEX_HLP_PAR_ARG_RECP_ADDR="-a|--address <address>"
 readonly L_TEX_HLP_PAR_ARG_RECP_NAME="-n|--name <name>"
+readonly L_TEX_HLP_PAR_ARG_VARS="-v|--vars <vars>"
 
 #-------------------------------------------------------------------------------
 #  Last argument (parameter), see also <args_read()> in '/src/run.sh'

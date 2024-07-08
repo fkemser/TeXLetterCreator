@@ -112,6 +112,15 @@ arg_file_in=""      # Input '.tex' file (full path)
 arg_file_out=""     # Output '.pdf' file (full path)
 arg_recp_addr=""    # Recipient's address (multiline, without name)
 arg_recp_name=""    # Recipient's name (one line)
+
+# Variables (identifiers, multiple separated by space ' ') that have been
+# exported by the calling script/terminal, for further use in the the LaTeX
+# input file. The purpose of this parameter: (La)TeX uses some special
+# characters that have to be escaped (\) when using them as "normal" characters.
+# This parameter makes sure that this script is aware of the variables that
+# have to be checked for special characters. See also:
+#   https://tex.stackexchange.com/a/34586
+arg_vars=""
 #-------------------------------------------------------------------------------
 #                                      /|\
 #                                     /|||\
@@ -192,7 +201,8 @@ readonly ARG_ACTION_LIST_SCRIPT="HELP CREATE PRINT"
 #  parameters (separated by space) that are allowed in script mode.
 #  !!! Use the variable's name in capital letters,
 #      e.g. for <arg_int> use <ARG_INT> !!!
-readonly LIST_ARG="ARG_FILE_IN ARG_FILE_OUT ARG_RECP_ADDR ARG_RECP_NAME"
+readonly LIST_ARG="ARG_FILE_IN ARG_FILE_OUT ARG_RECP_ADDR ARG_RECP_NAME \
+ARG_VARS"
 
 #-------------------------------------------------------------------------------
 #  Lists of parameters to clear/reset (interactive mode only)
@@ -287,6 +297,12 @@ args_check() {
     true
 
   elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
+        [ "${arg_mode}" = "${ARG_MODE_INTERACTIVE_SUBMENU}" ]; then
+
+    # Submenu mode
+    true
+
+  elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_SCRIPT}" ]; then
 
     # Script mode
@@ -329,7 +345,12 @@ args_check() {
   true                                                                      && \
 
   #  arg_recp_name
-  true                                                                      || \
+  true                                                                      && \
+
+  #  arg_vars
+  if lib_core_is --not-empty "${arg_vars}"; then
+    lib_core_var_is --set ${arg_vars}
+  fi                                                                        || \
   #-----------------------------------------------------------------------------
   #                                     /|\
   #                                    /|||\
@@ -347,7 +368,8 @@ args_check() {
 #         NAME:  args_read
 #  DESCRIPTION:  Read passed arguments into global parameters/variables
 #      GLOBALS:  arg_action     arg_logdest   arg_mode
-#                arg_recp_addr  arg_file_in   arg_recp_name   arg_file_out
+#                arg_file_in    arg_file_out  arg_recp_addr  arg_recp_name
+#                arg_vars
 # PARAMETER  1:  Should be "$@" to get all arguments passed
 #      OUTPUTS:  An error message to <stderr> and/or <syslog>
 #                in case an error occurs
@@ -405,6 +427,7 @@ args_read() {
       -i|--in)      arg_file_in="$(lib_core_expand_tilde "$2")"; [ $# -ge 1 ] && { shift; } ;;
       -n|--name)    arg_recp_name="$2"; [ $# -ge 1 ] && { shift; } ;;
       -o|--out)     arg_file_out="$(lib_core_expand_tilde "$2")"; [ $# -ge 1 ] && { shift; } ;;
+      -v|--vars)    arg_vars="$2"; [ $# -ge 1 ] && { shift; } ;;
       #-------------------------------------------------------------------------
       #                                   /|\
       #                                  /|||\
@@ -515,20 +538,6 @@ cleanup_interactive() {
 #===============================================================================
 error() {
   msg --error "$@"
-}
-
-error_arg() {
-  eval "readonly TXT_INVALID_ARG_1=\${LIB_SHTPL_${ID_LANG}_TXT_INVALID_ARG_1}"
-  eval "readonly TXT_INVALID_ARG_2=\${LIB_SHTPL_${ID_LANG}_TXT_INVALID_ARG_2}"
-
-  local val
-  eval "val=\${$1}"
-
-  local par
-  par="$(lib_core_str_to --const "L_$(lib_core_file_get --name "$0")_HLP_PAR_$1")"
-  eval "par=\${${par}}"
-
-  error "${TXT_INVALID_ARG_1} <${val}> ${TXT_INVALID_ARG_2} [${par}]. ${LIB_SHTPL_EN_TXT_HELP} ${LIB_SHTPL_EN_TXT_ABORTING}"
 }
 
 #===  FUNCTION  ================================================================
@@ -704,7 +713,8 @@ ${par_lastarg} : ${txt_lastarg}"
     "$(lib_shtpl_arg --par "arg_file_in")"    "$(lib_shtpl_arg --des "arg_file_in")" " " ""   \
     "$(lib_shtpl_arg --par "arg_file_out")"   "$(lib_shtpl_arg --des "arg_file_out")" " " ""  \
     "$(lib_shtpl_arg --par "arg_recp_addr")"  "$(lib_shtpl_arg --des "arg_recp_addr")" " " "" \
-    "$(lib_shtpl_arg --par "arg_recp_name")"  "$(lib_shtpl_arg --des "arg_recp_name")"
+    "$(lib_shtpl_arg --par "arg_recp_name")"  "$(lib_shtpl_arg --des "arg_recp_name")" " " "" \
+    "$(lib_shtpl_arg --par "arg_vars")"       "$(lib_shtpl_arg --des "arg_vars")"
   #-----------------------------------------------------------------------------
   #                                     /|\
   #                                    /|||\
@@ -1680,34 +1690,51 @@ create() {
   file_out_log="${file_out_dir}/${file_out_name}.log"
   file_out_pdf="${file_out_dir}/${file_out_name}.pdf"
 
-  # LaTeX expects '\\' instead of '\n' for newline
-  local arg_recp_addr_old="${arg_recp_addr}"
-  arg_recp_addr="$(lib_core_str_remove_newline "${arg_recp_addr}" "\\\\\\")"
-
   local exitcode="0"
   lib_core_file_touch "${file_out_aux}" "${file_out_log}" "${file_out_pdf}" && \
   { chmod 600 "${file_out_aux}" "${file_out_log}" "${file_out_pdf}"   && \
 
-    # Export recipient-related variables that <arg_file_in> expects
-    export arg_recp_addr arg_recp_name                                && \
+    ( # Use subshell to ensure that any modifications on variables
+      # are just temporary
 
-    cd "${file_in_dir}"                                               && \
-    { lualatex                                    \
+      # Escape (La)TeX special characters in <arg_recp_addr>, <arg_recp_name>,
+      # and in any custom environment variable that has been specified
+      # in <arg_vars> (contains identifiers, no values)
+      #   https://tex.stackexchange.com/a/34586
+      for var in arg_recp_addr arg_recp_name ${arg_vars} ; do
+        # Get variable's value
+        eval "val=\${${var}}"
+
+        # Escape (La)TeX special characters
+        val="$(lib_core_str_replace_substr "${val}" "\\\\" "\\\\textbackslash")"
+        val="$(lib_core_str_replace_substr "${val}" "\([%\${_>#&}§<]\)" "\\\\\1")"
+        val="$(lib_core_str_replace_substr "${val}" "~" "\\\\textasciitilde")"
+        val="$(lib_core_str_replace_substr "${val}" "\^" "\\\\textasciicircum")"
+
+        # (La)TeX expects '\\' instead of '\n' for newline
+        val="$(lib_core_str_remove_newline "${val}" "\\\\\\")"
+
+        # Set original variable
+        eval ${var}=\"\${val}\"
+      done
+
+      # Export recipient-related variables that <arg_file_in> expects
+      export arg_recp_addr arg_recp_name
+
+      # Finally, create '.pdf' file
+      cd "${file_in_dir}"
+      lualatex                                    \
         --halt-on-error                           \
         --jobname="${file_out_name}"              \
         --output-directory="${file_out_dir}"      \
-        "${file_in_name}"                                             || \
-
-      exitcode="$?"
-      cd - >/dev/null
-    }                                                                 || \
+        "${file_in_name}"
+    )                                                                 || \
     exitcode="$?"
 
     rm -f "${file_out_aux}" "${file_out_log}"
     if [ "${exitcode}" -ne "0" ]; then rm -f "${file_out_pdf}"; fi
   }
 
-  arg_recp_addr="${arg_recp_addr_old}"
   return ${exitcode}
 }
 #===============================================================================

@@ -37,7 +37,7 @@
 %-------------------------------------------------------------------------------
 \RequirePackage{afterpage}          % Needed to change textwidth after first page
 \RequirePackageWithOptions{babel}   % Spelling / Hyphenation
-\RequirePackage{catchfile}          % Needed for reading environmental variables
+\RequirePackage{catchfile}          % Needed for reading environment variables
 \RequirePackage{enumitem}           % Individual enumerations and lists
 \RequirePackage{etoolbox}           % Needed for '\notblank' tests
 \RequirePackage{fontawesome5}       % Font Awesome Free v5 (Symbols)
@@ -274,9 +274,9 @@
 
 %===  COMMAND  =================================================================
 %         NAME:  getenv
-%  DESCRIPTION:  Get the value of a OS environmental variable
+%  DESCRIPTION:  Get the value of a OS environment variable
 % PARAMETER  1:  (New) macro that will store the value
-%            2:  Environmental variable
+%            2:  Environment variable
 %      EXAMPLE:  '\getenv[\username]{USER}'
 %
 %      SOURCES:  https://tex.stackexchange.com/a/62032

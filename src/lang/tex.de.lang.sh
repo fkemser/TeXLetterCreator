@@ -51,7 +51,7 @@ readonly L_TEX_DE_HLP_DES_ARG_MODE_INTERACTIVE_SUBMENU="${LIB_SHTPL_DE_HLP_DES_A
 #-------------------------------------------------------------------------------
 readonly L_TEX_DE_DLG_TTL_ARG_FILE_IN="Quelldatei (LaTeX-Vorlage)"
 readonly L_TEX_DE_DLG_TXT_ARG_FILE_IN="Bitte wählen Sie eine bestehende Vorlagendatei (.tex) aus."
-readonly L_TEX_DE_HLP_DES_ARG_FILE_IN="Zu verwendende LaTeX-Vorlagendatei (.tex)"
+readonly L_TEX_DE_HLP_DES_ARG_FILE_IN="Zu verwendende LaTeX-Vorlagendatei (.tex). Sofern in der Datei weitere Umgebungsvariablen verwendet werden, sollten diese mit '${L_TEX_HLP_PAR_ARG_VARS}' angegeben werden. Dies stellt sicher, dass Zeichen mit \"besonderer Bedeutung\" wie beispielsweise '\$' maskiert ('\') werden, sofern der Inhalt der Variablen solche enthält."
 
 #-------------------------------------------------------------------------------
 #  arg_file_out
@@ -77,6 +77,11 @@ readonly L_TEX_DE_DLG_TTL_ARG_RECP_NAME="Empfänger (Name)"
 readonly L_TEX_DE_DLG_TXT_ARG_RECP_NAME="Bitte geben Sie den Namen des Empfängers an."
 readonly L_TEX_DE_DLG_STR_ARG_RECP_NAME="Erika Mustermann"
 readonly L_TEX_DE_HLP_DES_ARG_RECP_NAME="Name des Empfängers"
+
+#-------------------------------------------------------------------------------
+#  arg_vars
+#-------------------------------------------------------------------------------
+readonly L_TEX_DE_HLP_DES_ARG_VARS="Variablen(namen), die im aufrufenden Skript bzw. Terminal exportiert wurden, zur weiteren Verwendung in der LaTeX-Vorlagendatei ('${L_TEX_HLP_PAR_ARG_FILE_IN}'). Mehrere Variablen werden durch Leerzeichen (' ') getrennt."
 
 #-------------------------------------------------------------------------------
 #  Last argument (parameter), see also <args_read()> in '/src/run.sh'

@@ -156,7 +156,7 @@ Please also have a look at the corresponding sections in [CUPSwrapper](https://g
 
 This repository is shipped with a **sample template** (`/test/tex/letter.tex`), a modified version of [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter). **To customize the template** please edit the files within the `/tex` folder. For more information please have a look at [GerLaTeXLetter](https://github.com/fkemser/GerLaTeXLetter#customization).
 
-**In case you use your own TeX template please make sure that it is capable of using the system's environmental variables**. This script will provide the following **additional environmental variables** to the template:
+**In case you use your own TeX template please make sure that it is capable of using the system's environment variables**. This script will provide the following **additional environment variables** to the template:
 
 | Variable        | Description                                   | Example                                     |
 |-----------------|-----------------------------------------------|---------------------------------------------|
