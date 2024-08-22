@@ -1706,13 +1706,14 @@ create() {
         eval "val=\${${var}}"
 
         # Escape (La)TeX special characters
-        val="$(lib_core_str_replace_substr "${val}" "\\\\" "\\\\textbackslash")"
+        val="$(lib_core_str_replace_substr "${val}" "\\\\" "\\\\textbackslash()")"
         val="$(lib_core_str_replace_substr "${val}" "\([%\${_>#&}§<]\)" "\\\\\1")"
-        val="$(lib_core_str_replace_substr "${val}" "~" "\\\\textasciitilde")"
-        val="$(lib_core_str_replace_substr "${val}" "\^" "\\\\textasciicircum")"
+        val="$(lib_core_str_replace_substr "${val}" "\\\\textbackslash()" "\\\\textbackslash{}")"
+        val="$(lib_core_str_replace_substr "${val}" "~" "\\\\textasciitilde{}")"
+        val="$(lib_core_str_replace_substr "${val}" "\^" "\\\\textasciicircum{}")"
 
-        # (La)TeX expects '\\' instead of '\n' for newline
-        val="$(lib_core_str_remove_newline "${val}" "\\\\\\")"
+        # (La)TeX expects '\newline{}' instead of '\n' for newline
+        val="$(lib_core_str_remove_newline "${val}" "\\\\newline{}")"
 
         # Set original variable
         eval ${var}=\"\${val}\"
