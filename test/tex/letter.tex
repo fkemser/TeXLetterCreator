@@ -65,7 +65,7 @@
 %-------------------------------------------------------------------------------
 %  KOMA script variables (language-dependent description)
 %-------------------------------------------------------------------------------
-%  Default
+%  USenglish (default)
 %\setkomavar*{varname}{description_default}
 
 %  ngerman
@@ -76,7 +76,7 @@
 %-------------------------------------------------------------------------------
 %  KOMA script variables (language-dependent initialization)
 %-------------------------------------------------------------------------------
-%  Default
+%  USenglish (default)
 %\setkomavar{varname}{value_default}
 
 %  ngerman
@@ -107,7 +107,7 @@
 %-------------------------------------------------------------------------------
 %  Addressee-independent
 %-------------------------------------------------------------------------------
-%  Default
+%  USenglish (default)
 %  Delivery Information
 \setkomavar{specialmail}{%
 \\
@@ -127,6 +127,12 @@ Personal / Confidential%
 }
 %  CC
 \setkomavar{cc}{%
+}
+
+%  UKenglish
+\IfLanguagePatterns{UKenglish}{%
+  %  Complimentary closing
+  \setkomavar{closing}{Yours sincerely,}
 }
 
 %  ngerman
@@ -156,13 +162,19 @@ Personal / Confidential%
 %-------------------------------------------------------------------------------
 %  Addressee-specific
 %-------------------------------------------------------------------------------
-%  Default
+%  USenglish (default)
 %  Full name
 \setkomavar{toname}{\recpname}
 %  Mail address
 \setkomavar{toaddress}{\recpaddr}
 %  Salutation
-\setkomavar{opening}{Dear \recpname}
+\setkomavar{opening}{Dear \recpname:}
+
+%  UKenglish
+\IfLanguagePatterns{UKenglish}{%
+  %  Salutation
+  \setkomavar{opening}{Dear \recpname,}
+}
 
 %  ngerman
 \IfLanguagePatterns{ngerman}{%
