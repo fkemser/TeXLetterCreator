@@ -321,6 +321,12 @@ args_check() {
     true
 
   elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
+        [ "${arg_mode}" = "${ARG_MODE_INTERACTIVE_SUBMENU}" ]; then
+
+    # Submenu mode
+    true
+
+  elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_SCRIPT}" ]; then
 
     # Script mode
@@ -393,7 +399,8 @@ args_read() {
       --submenu)
         # Possibility to run a certain submenu interactively
         arg_mode="${ARG_MODE_INTERACTIVE_SUBMENU}"
-        arg_action="$2"; [ $# -ge 1 ] && { shift; }
+        arg_action="$2"
+        [ $# -ge 1 ] && { shift; }
         ;;
 
       #-------------------------------------------------------------------------
@@ -426,6 +433,10 @@ args_read() {
               ;;
         esac
         ;;
+
+      #  Other parameters <arg_...>
+      #  DONE: Please make sure that the command line options set here match
+      #        the ones set in '/src/lang/run.0.lang.sh' (<L_RUN_HLP_PAR_ARG_...>).
       #-------------------------------------------------------------------------
       #                                   /|\
       #                                  /|||\
@@ -659,7 +670,7 @@ ${par_lastarg} : ${txt_lastarg}"
   #    Please define your help texts in '/src/lang/run.<...>.lang.sh' before
   #    continuing here. To create/format the texts automatically, please use the
   #    the <lib_shtpl_arg()> function. You can find its documentation in
-  #    '/lib/SHtemplateLIB/shtpl.0.lib.sh'.
+  #    '/lib/SHtemplateLIB/lib/shtpl.0.lib.sh'.
   #-----------------------------------------------------------------------------
   lib_msg_print_propvalue "--left" "--left" "2" "" " "                                                                \
     "$(lib_shtpl_arg --par "ARG_ACTION_HELP")"               "$(lib_shtpl_arg --des "ARG_ACTION_HELP")" " " ""        \
@@ -691,7 +702,7 @@ ${par_lastarg} : ${txt_lastarg}"
   #    Please define your help texts in '/src/lang/run.<...>.lang.sh' before
   #    continuing here. To create/format the texts automatically, please use the
   #    the <lib_shtpl_arg()> function. You can find its documentation in
-  #    '/lib/SHtemplateLIB/shtpl.0.lib.sh'.
+  #    '/lib/SHtemplateLIB/lib/shtpl.0.lib.sh'.
   #-----------------------------------------------------------------------------
   #-----------------------------------------------------------------------------
   #                                     /|\
@@ -933,7 +944,7 @@ init_first() {
   #                                     |||
   #                                    \|||/
   #                                     \|/
-  #----------------------------------------------------------------------------
+  #-----------------------------------------------------------------------------
   #-----------------------------------------------------------------------------
   #                                     /|\
   #                                    /|||\
@@ -1014,6 +1025,8 @@ init_lang() {
   eval "readonly TXT_INVALID_ARG_1=\${LIB_SHTPL_${ID_LANG}_TXT_INVALID_ARG_1}"
   eval "readonly TXT_INVALID_ARG_2=\${LIB_SHTPL_${ID_LANG}_TXT_INVALID_ARG_2}"
   eval "readonly TXT_PROCESSING=\${LIB_SHTPL_${ID_LANG}_TXT_PROCESSING}"
+  eval "readonly TXT_TRAP_MAIN_TERMINATED=\${LIB_SHTPL_${ID_LANG}_TXT_TRAP_MAIN_TERMINATED}"
+  eval "readonly TXT_TRAP_MAIN_TERMINATING=\${LIB_SHTPL_${ID_LANG}_TXT_TRAP_MAIN_TERMINATING}"
 }
 
 #===  FUNCTION  ================================================================
@@ -1402,7 +1415,7 @@ trap_main() {
   local pid
   pid="$(lib_os_ps_pidlock --getpid)" || \
   lib_os_ps_get_ownpid pid
-  info --syslog "Signal <${arg_signal}> received. Terminating (PID <${pid}>) ..."
+  eval info --syslog \"${TXT_TRAP_MAIN_TERMINATING}\"
 
   # Special Trap Handling
   case "${arg_mode}" in
@@ -1502,7 +1515,7 @@ trap_main() {
   #  If PID lock is disabled ("PIDLOCK_ENABLED"="false"), then
   #  <lib_os_ps_pidlock()> will fail but without any consequences.
   lib_os_ps_pidlock --unlock
-  info --syslog "Script terminated (PID <${pid}>)."
+  eval info --syslog \"${TXT_TRAP_MAIN_TERMINATED}\"
 
   #  Exit - Depends on signal ...
   case "${arg_signal}" in
