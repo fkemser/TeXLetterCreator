@@ -1833,7 +1833,7 @@ menu_arg_file_in() {
       dialog --title "${title}" --msgbox "${text}" 0 0                      && \
       result="$(dialog --title "${title}"                                   \
         --fselect "${result:-${arg_file_in:-${I_FILE_TEX_LETTER}}}" 0 0 2>&1 1>&3)" && \
-#        --fselect "${result:-${arg_file_in:-~/}}" 0 0 2>&1 1>&3)"           && \
+#        --fselect "${result:-${arg_file_in:-$HOME/}}" 0 0 2>&1 1>&3)"       && \
       result="$(lib_core_expand_tilde "${result}")"                         || \
       exitcode="$?"
 
@@ -1869,7 +1869,7 @@ menu_arg_file_out() {
       exitcode="0"
       dialog --title "${title}" --msgbox "${text}" 0 0                      && \
       result="$(dialog --title "${title}"                                   \
-        --fselect "${result:-${arg_file_out:-~/}}" 0 0 2>&1 1>&3)"          && \
+        --fselect "${result:-${arg_file_out:-$HOME/}}" 0 0 2>&1 1>&3)"      && \
       result="$(lib_core_expand_tilde "${result}")"                         || \
       exitcode="$?"
 
