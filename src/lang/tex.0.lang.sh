@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# SPDX-FileCopyrightText: Copyright (c) 2023-2024 Florian Kemser and the TeXLetterCreator contributors
+# SPDX-FileCopyrightText: Copyright (c) 2023-2026 Florian Kemser and the TeXLetterCreator contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 #===============================================================================
@@ -180,7 +180,7 @@ readonly L_TEX_ABOUT_RUN="./$(basename "$0")"
 readonly L_TEX_ABOUT_VERSION="1.0.0"
 
 #  (Optional) Project year(s), e.g. '2023', '2023-2024'
-readonly L_TEX_ABOUT_YEARS="2023-2024"
+readonly L_TEX_ABOUT_YEARS="2023-2026"
 
 #===============================================================================
 #  PARAMETER (TEMPLATE) - DO NOT EDIT

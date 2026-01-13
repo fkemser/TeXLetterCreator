@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# SPDX-FileCopyrightText: Copyright (c) 2022-2024 Florian Kemser and the CUPSwrapper contributors
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 Florian Kemser and the CUPSwrapper contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 #===============================================================================
@@ -11,7 +11,7 @@
 #                 (This is a constant file, so please do NOT run it.)
 #
 #  DESCRIPTION:   --English-- String Constants File for '/src/cups.sh'
-#                 Used to generate help texts, interactive dialogues,
+#                 Used to generate help texts, interactive dialogs,
 #                 and other terminal/log messages.
 #
 #         BUGS:   ---
@@ -162,8 +162,7 @@ In case the menu is empty you may need additional drivers. For more information 
 #-------------------------------------------------------------------------------
 readonly L_CUPS_EN_DLG_TTL_PR_OPTIONS="Printing Options"
 readonly L_CUPS_EN_DLG_TXT_PR_OPTIONS_1="Please choose the option that you would like to edit. To save your changes and continue please choose '${LIB_SHTPL_DLG_TAG_EXIT}' at the beginning/end of the list."
-readonly L_CUPS_EN_DLG_TXT_PR_OPTIONS_2="Please choose one of the following values.
-(An asterisk ('*') indicates that this is the option's current default value.)"
+readonly L_CUPS_EN_DLG_TXT_PR_OPTIONS_2="Please choose one of the following values. An asterisk ('*') indicates that this is the option's current default value."
 readonly L_CUPS_EN_DLG_TXT_PR_OPTIONS_31="\
 ==================
  Changed Settings
@@ -196,7 +195,7 @@ In case you print confidential documents, e.g. with passwords, PINs, etc., it is
   - locally (${L_CUPS_DLG_TXT_PR_QUEUE_21}) or
   - via a secure network connection (${L_CUPS_DLG_TXT_PR_QUEUE_22}).
 
-Otherwise unauthorised persons may be able to access your data."
+Otherwise unauthorized persons may be able to access your data."
 readonly L_CUPS_EN_DLG_TXT_PR_QUEUE_2_DEFAULT="Please select your default printer. Your current default printer is:"
 readonly L_CUPS_EN_DLG_TXT_PR_QUEUE_3="No printer found."
 readonly L_CUPS_EN_DLG_TXT_PR_QUEUE_4="Please enter a valid queue name that has not been assigned yet. Allowed characters: [a-zA-Z0-9_%-]"

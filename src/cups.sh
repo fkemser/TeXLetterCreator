@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# SPDX-FileCopyrightText: Copyright (c) 2022-2024 Florian Kemser and the CUPSwrapper contributors
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 Florian Kemser and the CUPSwrapper contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 #===============================================================================
@@ -293,53 +293,71 @@ readonly T_DAEMON_SLEEP="60"
 #            1:  At least one argument is not valid
 #===============================================================================
 args_check() {
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #  DO NOT EDIT
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   # Check if selected action is compatible with the selected mode
   lib_shtpl_arg_action_is_valid                                             && \
 
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #                        DONE: DEFINE YOUR CHECKS HERE
   #                   (DO NOT FORGET THE TERMINATING '|| \')
   #
   #                                     |||
   #                                    \|||/
   #                                     \|/
-  #-----------------------------------------------------------------------------
+  #=============================================================================
 
-  #-----------------------------------------------------------------------------
-  #  Check if mandatory arguments are set (daemon / script mode only)
-  #-----------------------------------------------------------------------------
+  #=============================================================================
+  #  Check if mandatory arguments are set (daemon / submenu / script mode only)
+  #=============================================================================
   #  Some arguments may not be listed here as <init_update()> may set their
   #  default values.
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   if    [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_DAEMON}" ]; then
-
-    # Daemon mode
+    #===========================================================================
+    #  Daemon mode
+    #===========================================================================
     true
 
   elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_INTERACTIVE_SUBMENU}" ]; then
-
-    # Submenu mode
+    #===========================================================================
+    #  Submenu mode
+    #===========================================================================
     true
 
   elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_SCRIPT}" ]; then
+    #===========================================================================
+    #  Script mode (action-independent checks)
+    #===========================================================================
+    true                                                                    && \
 
-    # Script mode
+    #===========================================================================
+    #  Script mode (action-dependent checks that are specific to script mode)
+    #===========================================================================
+    case "${arg_action}" in
+      *) true ;;
+    esac                                                                    && \
+
+    #===========================================================================
+    #  Script mode (checks that are also relevant to interactive mode)
+    #===========================================================================
+    #  The following checks mostly follow <menu_main()>'s structure.
+    #===========================================================================
     true
 
   fi                                                                        && \
 
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #  Check argument types / value ranges
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #  For more available checks, please have a look at the functions
-  #  <lib_core_is()> and <lib_core_regex()> in '/lib/SHlib/lib/core.lib.sh'
-  #-----------------------------------------------------------------------------
+  #  <lib_core_is()> in '/lib/SHlib/lib/core.lib.sh' and
+  #  <lib_regex()> in '/lib/SHlib/lib/regex.lib.sh'.
+  #=============================================================================
   #-----------------------------------------------------------------------------
   #  arg_file
   #-----------------------------------------------------------------------------
@@ -347,14 +365,14 @@ args_check() {
     lib_core_is --file "${arg_file}" || lib_shtpl_arg_error "arg_file"
   fi                                                                        || \
 
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #                                     /|\
   #                                    /|||\
   #                                     |||
   #
   #                        DONE: DEFINE YOUR CHECKS HERE
   #                   (DO NOT FORGET THE TERMINATING '|| \')
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   { error "${TXT_ARGS_CHECK_ERR}"
     return 1
   }
@@ -1162,7 +1180,7 @@ main_daemon() {
 #  DESCRIPTION:  Main subfunction (interactive / submenu mode)
 #===============================================================================
 main_interactive() {
-  # Check for minimum terminal size (otherwise some dialogues would fail)
+  # Check for minimum terminal size (otherwise some dialogs would fail)
   lib_msg_dialog_autosize >/dev/null                                        && \
 
   # Show welcome message (but not in submenu mode)
@@ -1596,7 +1614,7 @@ menu_arg_action() {
 #  DESCRIPTION:  Main menu (interactive mode)
 #===============================================================================
 menu_main() {
-  # Check for minimum terminal size (otherwise some dialogues would fail)
+  # Check for minimum terminal size (otherwise some dialogs would fail)
   lib_msg_dialog_autosize >/dev/null                                        || \
   { sleep 3; return 1; }
 
@@ -1961,17 +1979,18 @@ menu_arg_file() {
   local result
   local exitcode
   exec 3>&1
-    # Select file
     while true; do
       exitcode="0"
 
+      # Select file
       dialog --title "${title}" --msgbox "${text1}" 0 0                       && \
       result="$(dialog --title "${title}"                                     \
-        --fselect "${result:-${arg_file:-~/}}" 0 0 2>&1 1>&3)"                && \
+        --fselect "${result:-${arg_file:-$HOME/}}" 0 0 2>&1 1>&3)"            && \
       result="$(lib_core_expand_tilde "${result}")"                           || \
       exitcode="$?"
 
-      # Check if file exists
+      # Show prompt again if <result> does not exist unless the user has
+      # pressed the 'Cancel' button
       case "${exitcode}" in
         0) if lib_core_is --file "${result}"; then break; fi ;;
         *) break ;;
@@ -2107,23 +2126,25 @@ menu_pr_devuri() {
           printf "%s\n%s\n" "${tag}" "${item}"
         done)"                                                          && \
 
-      # Show dialogue with device URIs and a special
-      # "OTHER" entry to add an individual device URI
+      # Dialog #1: Show dialog with a list of detected devices (URIs)
+      # and an additional entry ('OTHER') to manually enter an URI
       result="$(dialog --title "${title}" --menu "${text1}" 0 0 0       \
         ${uris} "${tag1}" "${item1}" 2>&1 1>&3)"                        && \
 
       case "${result}" in
         ${tag1})
-          # OTHER
+          # Dialog #2: Allow the user to manually enter an URI
+          # (only if 'OTHER' was selected in dialog #1)
           result="$(dialog --title "${title}" --inputbox "${text2}" 0 0 \
             "${pr_devuri}" 2>&1 1>&3)"
           ;;
       esac                                                              || \
       exitcode="$?"
 
-      # Check input
+      # Show prompt again if <result> is not a valid device URI
+      # unless the user has pressed the 'Cancel' button
       case "${exitcode}" in
-        0) if lib_core_regex --cups-devuri "${result}"; then break; fi ;;
+        0) if lib_regex --cups-devuri "${result}"; then break; fi ;;
         *) if lib_core_is --empty "${result}"; then break; fi ;;
       esac
     done
@@ -2205,15 +2226,16 @@ menu_pr_options() {
             printf "%s\n%s\n" "${tag}" "${item}"
           done)"                                                          && \
 
-      # Show (first) dialogue with options and a special "exit" entry
-      # at the top and the bottom of the menu
+      # Dialog #1: Show available options and a special 'exit' entry at
+      # the top and the bottom of the menu
       opt="$(dialog --title "${title}" --menu "${text1}" 0 0 0            \
         ${opts:+"${tag1}" "${item1}"}                                     \
         ${opts} "${tag1}" "${item1}" 2>&1 1>&3)"                          && \
 
       case "${opt}" in
         ${tag1})
-          # "exit": Show changes and ask user to continue
+          # Dialog #3: Ask the user to save current changes and exit
+          # (only if 'exit' was selected in dialog #1)
           text="$(printf  "%s\n\n%s\n%s"              \
                           "${text31}"                 \
                           "${result:-${text32}}"      \
@@ -2227,7 +2249,7 @@ menu_pr_options() {
           ;;
       esac                                                                && \
 
-      # Get possible values for previously chosen option <opt>
+      # Get possible values for previously chosen option <opt> (dialog #1)
       vals="$(for a in $(lpoptions -p "${pr_queue}" -l 2>/dev/null \
         | grep -e "^${opt}[/:]" | cut -d':' -f2); do
             tag="$a"
@@ -2235,7 +2257,7 @@ menu_pr_options() {
             printf "%s\n%s\n" "${tag}" "${item}"
           done)"                                                          && \
 
-      # Show (second) dialog with possible values
+      # Dialog #2: Show possible values for previously chosen option <opt> (dialog #1)
       val="$(dialog --extra-button --extra-label "${extra}" \
         --title "${title} <${opt}>" --menu "${text2}" 0 0 0 \
         ${vals} 2>&1 1>&3)"                                               && \
@@ -2425,8 +2447,8 @@ menu_pr_queue() {
                   #-------------------------------------------------------------
                   result="$(dialog --title "${title}" --inputbox "${text4}" \
                     0 0 "${pr_queue}" 2>&1 1>&3)"                           && \
-                  { lib_core_regex --cups-queue "${result}"   && \
-                    ! lpstat -p "${result}" >/dev/null 2>&1   || \
+                  { lib_regex --cups-queue "${result}"      && \
+                    ! lpstat -p "${result}" >/dev/null 2>&1 || \
                     result=""
                   }
                   ;;
@@ -2472,6 +2494,8 @@ menu_pr_queue() {
       esac                                                                  || \
       exitcode="$?"
 
+      # Show prompt again if <result> is empty unless the user has pressed the
+      # 'Cancel' button
       case "${exitcode}" in
         0) if lib_core_is --not-empty "${result}"; then break; fi ;;
         *) if lib_core_is --empty "${result}"; then break; fi ;;

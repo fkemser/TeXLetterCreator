@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# SPDX-FileCopyrightText: Copyright (c) 2022-2024 Florian Kemser and the CUPSwrapper contributors
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 Florian Kemser and the CUPSwrapper contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 #===============================================================================
@@ -11,7 +11,7 @@
 #                 (This is a constant file, so please do NOT run it.)
 #
 #  DESCRIPTION:   --German-- String Constants File for '/src/cups.sh'
-#                 Used to generate help texts, interactive dialogues,
+#                 Used to generate help texts, interactive dialogs,
 #                 and other terminal/log messages.
 #
 #         BUGS:   ---
@@ -160,8 +160,7 @@ Abhängig vom eingegebenen Suchbegriff dauert es eventuell einige Minuten, bis d
 #-------------------------------------------------------------------------------
 readonly L_CUPS_DE_DLG_TTL_PR_OPTIONS="Druckeroptionen"
 readonly L_CUPS_DE_DLG_TXT_PR_OPTIONS_1="Bitte wählen Sie die Option aus, die Sie bearbeiten möchten. Zum Speichern und Fortfahren wählen Sie bitte '${LIB_SHTPL_DLG_TAG_EXIT}' am Anfang/Ende der Liste."
-readonly L_CUPS_DE_DLG_TXT_PR_OPTIONS_2="Bitte wählen Sie einen der nachfolgenden Werte aus.
-(Ein Stern '*' markiert die aktuelle Standardeinstellung.)"
+readonly L_CUPS_DE_DLG_TXT_PR_OPTIONS_2="Bitte wählen Sie einen der nachfolgenden Werte aus. Ein Stern '*' markiert die aktuelle Standardeinstellung."
 readonly L_CUPS_DE_DLG_TXT_PR_OPTIONS_31="\
 ====================
  Geänderte Optionen

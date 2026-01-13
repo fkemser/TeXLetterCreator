@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# SPDX-FileCopyrightText: Copyright (c) 2022-2024 Florian Kemser and the CUPSwrapper contributors
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 Florian Kemser and the CUPSwrapper contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 #===============================================================================
@@ -11,7 +11,7 @@
 #                 (This is a constant file, so please do NOT run it.)
 #
 #  DESCRIPTION:   String Constants Files for '/src/cups.sh'
-#                 Used to generate help texts, interactive dialogues,
+#                 Used to generate help texts, interactive dialogs,
 #                 and other terminal/log messages.
 #
 #         BUGS:   ---
@@ -32,7 +32,7 @@
 #  Language-independent constants, to be stored within THIS file
 #===============================================================================
 #-------------------------------------------------------------------------------
-#  Used in help, section "ABOUT" and welcome dialogue
+#  Used in help, section "ABOUT" and welcome dialog
 #-------------------------------------------------------------------------------
 #  Constant                       Description
 #  (Example)
@@ -180,7 +180,7 @@ readonly L_CUPS_ABOUT_RUN="./$(basename "$0")"
 readonly L_CUPS_ABOUT_VERSION="1.0.0"
 
 #  (Optional) Project year(s), e.g. '2023', '2023-2024'
-readonly L_CUPS_ABOUT_YEARS="2022-2024"
+readonly L_CUPS_ABOUT_YEARS="2022-2026"
 
 #===============================================================================
 #  PARAMETER (TEMPLATE) - DO NOT EDIT

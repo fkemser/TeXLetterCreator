@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# SPDX-FileCopyrightText: Copyright (c) 2022-2024 Florian Kemser and the CUPSwrapper contributors
+# SPDX-FileCopyrightText: Copyright (c) 2022-2026 Florian Kemser and the CUPSwrapper contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 #===============================================================================

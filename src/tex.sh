@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# SPDX-FileCopyrightText: Copyright (c) 2023-2024 Florian Kemser and the TeXLetterCreator contributors
+# SPDX-FileCopyrightText: Copyright (c) 2023-2026 Florian Kemser and the TeXLetterCreator contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 #===============================================================================
@@ -269,60 +269,82 @@ readonly T_DAEMON_SLEEP="60"
 #            1:  At least one argument is not valid
 #===============================================================================
 args_check() {
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #  DO NOT EDIT
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   # Check if selected action is compatible with the selected mode
   lib_shtpl_arg_action_is_valid                                             && \
 
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #                        DONE: DEFINE YOUR CHECKS HERE
   #                   (DO NOT FORGET THE TERMINATING '|| \')
   #
   #                                     |||
   #                                    \|||/
   #                                     \|/
-  #-----------------------------------------------------------------------------
+  #=============================================================================
 
-  #-----------------------------------------------------------------------------
-  #  Check if mandatory arguments are set (daemon / script mode only)
-  #-----------------------------------------------------------------------------
+  #=============================================================================
+  #  Check if mandatory arguments are set (daemon / submenu / script mode only)
+  #=============================================================================
   #  Some arguments may not be listed here as <init_update()> may set their
   #  default values.
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   if    [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_DAEMON}" ]; then
-
-    # Daemon mode
+    #===========================================================================
+    #  Daemon mode
+    #===========================================================================
     true
 
   elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_INTERACTIVE_SUBMENU}" ]; then
-
-    # Submenu mode
+    #===========================================================================
+    #  Submenu mode
+    #===========================================================================
     true
 
   elif  [ "${arg_action}" != "${ARG_ACTION_HELP}" ] && \
         [ "${arg_mode}" = "${ARG_MODE_SCRIPT}" ]; then
+    #===========================================================================
+    #  Script mode (action-independent checks)
+    #===========================================================================
+    lib_shtpl_arg_is_set "arg_file_in" "arg_recp_addr" "arg_recp_name"  && \
 
-    # Script mode
-    lib_shtpl_arg_is_set "arg_file_in" "arg_recp_addr" "arg_recp_name"
+    #===========================================================================
+    #  Script mode (action-dependent checks that are specific to script mode)
+    #===========================================================================
+    case "${arg_action}" in
+      *) true ;;
+    esac                                                                && \
+
+    #===========================================================================
+    #  Script mode (checks that are also relevant to interactive mode)
+    #===========================================================================
+    #  The following checks mostly follow <menu_main()>'s structure.
+    #===========================================================================
+    true
 
   fi                                                                        && \
 
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #  Check argument types / value ranges
-  #-----------------------------------------------------------------------------
+  #=============================================================================
   #  For more available checks, please have a look at the functions
-  #  <lib_core_is()> and <lib_core_regex()> in '/lib/SHlib/lib/core.lib.sh'
+  #  <lib_core_is()> in '/lib/SHlib/lib/core.lib.sh' and
+  #  <lib_regex()> in '/lib/SHlib/lib/regex.lib.sh'.
+  #=============================================================================
   #-----------------------------------------------------------------------------
   #  arg_file_in
+  #-----------------------------------------------------------------------------
   if lib_core_is --not-empty "${arg_file_in}"; then
     lib_core_is --file "${arg_file_in}" || \
     { error "<${arg_file_in}> ${TXT_ARGS_CHECK_ERR_ARG_FILE_IN}"; arg_file_in=""; false; }
   fi                                                                        && \
 
+  #-----------------------------------------------------------------------------
   #  arg_file_out (script mode)
+  #-----------------------------------------------------------------------------
   if lib_core_is --empty "${arg_file_out}"; then
     if  [ "${arg_mode}" = "${ARG_MODE_SCRIPT}" ] && \
         [ "${arg_action}" != "${ARG_ACTION_HELP}" ]; then
@@ -332,7 +354,9 @@ args_check() {
     fi
   fi                                                                        && \
 
+  #-----------------------------------------------------------------------------
   #  arg_file_out (all modes)
+  #-----------------------------------------------------------------------------
   if lib_core_is --not-empty "${arg_file_out}"; then
     #  Make sure that <arg_file_out> is a valid file path and that
     #  <arg_file_out> does not exist yet
@@ -341,13 +365,19 @@ args_check() {
     { error "<${arg_file_out}> ${TXT_ARGS_CHECK_ERR_ARG_FILE_OUT}"; arg_file_out=""; false; }
   fi                                                                        && \
 
+  #-----------------------------------------------------------------------------
   #  arg_recp_addr
+  #-----------------------------------------------------------------------------
   true                                                                      && \
 
+  #-----------------------------------------------------------------------------
   #  arg_recp_name
+  #-----------------------------------------------------------------------------
   true                                                                      && \
 
+  #-----------------------------------------------------------------------------
   #  arg_vars
+  #-----------------------------------------------------------------------------
   if lib_core_is --not-empty "${arg_vars}"; then
     lib_core_var_is --set ${arg_vars}
   fi                                                                        || \
